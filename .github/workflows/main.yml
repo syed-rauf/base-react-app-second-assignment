@@ -23,5 +23,5 @@ jobs:
       - name: Install Surge
         run: npm install -g surge
       - name: Run surge
-        run: surge ./build myfirstbasereactappbyrauf.surge.sh --token ${{ secrets.SURGE_TOKEN }}
+        run: surge ./ myfirstbasereactappbyrauf.surge.sh --token ${{ secrets.SURGE_TOKEN }}
            
