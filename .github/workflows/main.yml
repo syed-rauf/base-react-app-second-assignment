@@ -1,35 +1,27 @@
-# This is a basic workflow to help you get started with Actions
 
-name: base-react-app deployment
+   
+name: Deploy Website
 
-# Controls when the workflow will run
-on:
-  # Triggers the workflow on push or pull request events but only for the master branch
-  push:
-    branches: [ master ]
+on: [push]
 
-  # Allows you to run this workflow manually from the Actions tab
-  workflow_dispatch:
-
-  jobs:
-    build:
-      runs-on: ubuntu-latest
-      name: Deploying to surge
-      steps:
-        - uses: actions/checkout@v2
-        - name: Install Node.js
-          uses: actions/setup-node@v2-beta
-            with:
-              node-version: 12
-        - name: Prepare for Yarn Installation
-          run: curl -sS https://dl.yarnpkg.com/debian/pubkey.gpg | sudo apt-key add - echo "deb https://dl.yarnpkg.com/debian/ stable main" | sudo tee /etc/apt/sources.list.d/yarn.list
-        - name: install yarn
-          run: sudo apt update && sudo apt install yarn
-        - name: Build React App
-          run: yarn build
-        - name: Install Surge
-          run: npm install -g surge
-         
-        - name: Deploy to Surge
-          run: surge ./build myfirstbasereactappbyrauf.surge.sh --token ${{ secrets.SURGE_TOKEN }}
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    name: Deploying to surge
+    steps:
+      - uses: actions/checkout@v2
+      - name: Install Node.js
+        uses: actions/setup-node@v2-beta
+        with:
+          node-version: 12
+      - name: Prepare for Yarn Installation
+        run: curl -sS https://dl.yarnpkg.com/debian/pubkey.gpg | sudo apt-key add - echo "deb https://dl.yarnpkg.com/debian/ stable main" | sudo tee /etc/apt/sources.list.d/yarn.list
+      - name: install yarn
+        run: sudo apt update && sudo apt install yarn
+      - name: Build React App
+        run: yarn build
+      - name: Install Surge
+        run: npm install -g surge
+      - name: Run surge
+        run: surge ./build myfirstbasereactappbyrauf.surge.sh --token ${{ secrets.SURGE_TOKEN }}
            
